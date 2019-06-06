@@ -2,10 +2,17 @@ package com.timwheeler.springdemo;
 
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Random;
 
 @Component
 public class RandomFortuneService implements FortuneService {
+
+    @PostConstruct
+    public void init() {
+        System.out.println(">>> inside RandomFortuneService init()");
+    }
 
     // create an array of strings
     private String[] data = {
@@ -19,6 +26,7 @@ public class RandomFortuneService implements FortuneService {
     private Random random = new Random();
 
 
+    // pick random string from the array
     @Override
     public String getFortune() {
 
@@ -28,5 +36,10 @@ public class RandomFortuneService implements FortuneService {
 
         return theFortune;
     }
-        // pick random string from the array
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println(">>> inside RandomFortuneService destroy()");
+    }
+
 }
